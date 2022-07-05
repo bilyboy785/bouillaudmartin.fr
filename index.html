@@ -20,6 +20,10 @@
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" />
     <link rel="icon" type="image/png" href="favicon.png" />
+    <!-- SMTPJS -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <!-- Recaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <!-- OpenGraph -->
     <meta property="og:title" content="CV BouillaudMartin" />
     <meta property="og:type" content="website" />
@@ -238,21 +242,28 @@
       <script src="https://apps.elfsight.com/p/platform.js" defer></script>
       <div class="col-md-7 d-print-none">
         <div class="my-2">
-          <div class="elfsight-app-c9963d5a-3c5b-4bce-a8ec-6c20a2f545b9"></div>
-          <!-- <form action="https://formspree.io/your@email.com" method="POST">
+          <!-- <div class="elfsight-app-c9963d5a-3c5b-4bce-a8ec-6c20a2f545b9"></div> -->
+          <!-- <form action="https://formspree.io/your@email.com" method="POST"> -->
+            <form action="" method="POST" id="myform"></form>
             <div class="row">
               <div class="col-6">
-                <input class="form-control" type="text" id="name" name="name" placeholder="Your Name" required>
+                <input class="form-control" type="text" id="nomprenom" name="nomprenom" placeholder="Nom & Prénom" required>
               </div>
               <div class="col-6">
-                <input class="form-control" type="email" id="email" name="_replyto" placeholder="Your E-mail" required>
+                <input class="form-control" type="email" id="email" name="_replyto" placeholder="Email" required>
               </div>
             </div>
             <div class="form-group my-2">
-              <textarea class="form-control" style="resize: none;" id="message" name="message" rows="4"  placeholder="Your Message" required></textarea>
+              <div class="col-12">
+                <input class="form-control" type="text" id="objet" name="objet" placeholder="Objet" required>
+              </div>
             </div>
-            <button class="btn btn-primary mt-2" type="submit">Send</button>
-          </form> -->
+            <div class="form-group my-2">
+              <textarea class="form-control" style="resize: none;" id="message" name="message" rows="4"  placeholder="Message" required></textarea>
+            </div>
+            <p class="success" id="successform">Merci, votre message a bien été envoyé !</p>
+            <button class="btn btn-primary mt-2 g-recaptcha" data-sitekey="6LefssYgAAAAAKlAD3jZ35uBjgmztrlrxO0Ckq8S" data-callback='onSubmit' data-action='submit' id="submit" type="submit">Envoyer</button>
+          </form>
         </div>
       </div>
       <div class="col">
@@ -314,6 +325,36 @@
         </div>
       </div>
     </footer>
+    <script>
+      document.getElementById("successform").style.display = "none";
+      document.getElementById("submit").addEventListener("click", function () {
+      var bodyheader = '<h2>Nouvelle prise de contact depuis le formulaire</h2>';
+      var bodyfrom = '<b>De :</b> ' + document.getElementById("nomprenom").value + ' <' + document.getElementById("email").value + '><br>';
+      var bodyobjet = '<b>Objet :</b> ' + document.getElementById("objet").value + '<br>';
+      var bodymessage = '<b>Message :</b><br> ' + document.getElementById("message").value + '<br>';
+        Email.send({
+          SecureToken : "40de5972-93aa-46d3-9bdc-60e44f63e8ce",
+          To : 'contact@bouillaudmartin.fr',
+          FromName: document.getElementById("nomprenom").value,
+          ReplyAddress: document.getElementById("email").value,
+          From : 'contact@bldwebagency.fr',
+          Subject : "[Bouillaudmartin.fr] - " + document.getElementById("objet").value,
+          Body : bodyheader + bodyfrom + bodyobjet + bodymessage,
+        }).then(
+          document.getElementById('objet').value = '',
+          document.getElementById('message').value = '',
+          document.getElementById('nomprenom').value = '',
+          document.getElementById('email').value = '',
+          document.getElementById("successform").style.display = "block",
+          setTimeout(location.reload.bind(location), 6000),
+        );
+      });
+    </script>
+    <script>
+      function onSubmit(token) {
+        document.getElementById("myform").submit();
+      }
+    </script>
     <script src="scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
     <script src="scripts/aos.js?ver=1.2.0"></script>
     <script src="scripts/main.js?ver=1.2.0"></script>

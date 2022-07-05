@@ -18,6 +18,10 @@
   text-align: justify;
 }
 
+p.success {
+  color: green;
+}
+
 .timeline-card:before {
   content: '';
   display: inline-block;
