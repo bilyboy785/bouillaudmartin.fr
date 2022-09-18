@@ -1,0 +1,63 @@
+# BWA Begin - Custom Security Headers
+Header always set Strict-Transport-Security "max-age=31536000"
+Header always set X-Frame-Options SAMEORIGIN
+Header set X-XSS-Protection "1; mode=block"
+Header set X-Content-Type-Options nosniff
+<IfModule headers_module>
+        RequestHeader set X-HTTPS 1
+        Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+# BWA End - Custom Security Headers
+
+# BWA Begin - webp & avif image
+<IfModule mod_mime.c>
+    AddType image/webp 						              webp
+    AddType image/avif                                  avif
+    AddType image/avif-sequence                         avifs
+</IfModule>
+<Files *.webp>
+    Header set Vary "Accept-Encoding"
+    AddType "image/webp" .webp
+    AddEncoding webp .webp
+</Files>
+<Files *.avif>
+    Header set Vary "Accept-Encoding"
+    AddType "image/avif" .avif
+    AddEncoding avif .avif
+</Files>
+RewriteCond %{HTTP:Accept} image/avif
+RewriteCond %{REQUEST_FILENAME}.avif -f
+RewriteRule \.(jpe?g|png)$ %{REQUEST_FILENAME}.avif [L]
+RewriteCond %{HTTP:Accept} image/webp
+RewriteCond %{REQUEST_FILENAME}.webp -f
+RewriteRule \.(jpe?g|png)$ %{REQUEST_FILENAME}.webp [L]
+# BWA End - webp & avif image
+
+# BWA Begin - gzip & brotli compression
+<IfModule mod_headers.c>
+  RewriteCond %{HTTP:Accept-encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -s
+  RewriteRule ^(.*)\.css $1\.css\.br [QSA]
+  RewriteCond %{HTTP:Accept-encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -s
+  RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
+  RewriteCond %{HTTP:Accept-encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -s
+  RewriteRule ^(.*)\.js $1\.js\.br [QSA]
+  RewriteCond %{HTTP:Accept-encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -s
+  RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
+  RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
+  RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
+  RewriteRule \.css\.br$ - [T=text/css,E=no-gzip:1]
+  RewriteRule \.js\.br$ - [T=text/javascript,E=no-gzip:1]
+  <FilesMatch "(\.js\.gz|\.css\.gz)$">
+    Header set Content-Encoding gzip
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "(\.js\.br|\.css\.br)$">
+    Header set Content-Encoding br
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+</IfModule>
+# BWA End - gzip & brotli compression

@@ -14,4 +14,8 @@ do
     convert -quality 80 ./images/optimizing/${IMAGE} ${FULL_DIR}/${IMAGE}.avif
     echo "Cleaning optimizing directory"
     rm -f ./images/optimizing/${IMAGE}
+    cat ./template_picture | sed "s/MYIMG/${IMAGE}/g" >> /tmp/template
 done
+
+cat /tmp/template
+rm -f /tmp/template
