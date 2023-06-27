@@ -167,7 +167,14 @@
     <div class="timeline">
       <div class="timeline-card timeline-card-primary card shadow-sm">
         <div class="card-body">
-          <div class="h5 mb-1">Ingénieur Devops <span class="text-muted h6">Le Figaro, Paris</span></div>
+          <div class="h5 mb-1">Ingénieur Devops <span class="text-muted h6">Le Figaro, Paris (<span id="monthfigaro"></span> mois)</span></div>
+          <script type="text/javascript">
+            start_date = new Date('2022/10/01');
+            end_date = new Date(Date.now());
+            total_months = (end_date.getFullYear() - start_date.getFullYear())*12 + (end_date.getMonth() - start_date.getMonth());
+            console.log(total_months);
+            document.getElementById("monthfigaro").innerHTML = total_months;
+          </script>
           <div class="text-muted text-small mb-2">Octobre 2022 - Aujourd'hui</div>
           <div class="justifycontent">Maintient en conditions opérationnelles des plateformes d'hébergement<br>
             Assistance et accompagnement des équipes de developpeurs : CI/CD Jenkins / migration des applications sur Kubernetes (Dockerfile, configuration CI/CD, remontée des logs sous Jenkins)<br>
@@ -180,7 +187,14 @@
       </div>
       <div class="timeline-card timeline-card-primary card shadow-sm">
         <div class="card-body">
-          <div class="h5 mb-1">Tech Lead <span class="text-muted h6">Claranet, Bretagne</span></div>
+          <div class="h5 mb-1">Tech Lead <span class="text-muted h6">Claranet, Bretagne (<span id="monthclaranet"></span> mois)</span></div>
+          <script type="text/javascript">
+            start_date = new Date('2017/11/01');
+            end_date = new Date('2022/10/20');
+            total_months = (end_date.getFullYear() - start_date.getFullYear())*12 + (end_date.getMonth() - start_date.getMonth());
+            console.log(total_months);
+            document.getElementById("monthclaranet").innerHTML = total_months;
+          </script>
           <div class="text-muted text-small mb-2">Novembre 2017 - Octobre 2022</div>
           <div class="justifycontent">Missions opérationnelles courantes, maintient en conditions opérationnelles
             des plateformes clientes, contribution aux évolutions et déploiements techniques,
@@ -195,7 +209,14 @@
       </div>
       <div class="timeline-card timeline-card-primary card shadow-sm">
         <div class="card-body">
-          <div class="h5 mb-1">Administrateur Systèmes <span class="text-muted h6">Rabaud, Vendée</span></div>
+          <div class="h5 mb-1">Administrateur Systèmes <span class="text-muted h6">Rabaud, Vendée (<span id="monthrabaud"></span> mois)</span></div>
+          <script type="text/javascript">
+            start_date = new Date('2013/06/01');
+            end_date = new Date('2015/05/30');
+            total_months = (end_date.getFullYear() - start_date.getFullYear())*12 + (end_date.getMonth() - start_date.getMonth());
+            console.log(total_months);
+            document.getElementById("monthrabaud").innerHTML = total_months;
+          </script>
           <div class="text-muted text-small mb-2">Juin 2013 - Mai 2015</div>
           <div class="justifycontent">Support de niveau 1 sur un parc de postes Windows. <br>
             Administration systèmes et réseaux sur un parc de serveurs Windows sur ESXi. Déploiement de fermes RDS, d'un serveur Web (Nginx / PHP) pour la gestion de parc avec GLPI<br>
@@ -204,7 +225,7 @@
       </div>
       <div class="timeline-card timeline-card-primary card shadow-sm">
         <div class="card-body">
-          <div class="h5 mb-1">Technicien Informatique <span class="text-muted h6">Comm. de Communes, Vendée</span></div>
+          <div class="h5 mb-1">Technicien Informatique <span class="text-muted h6">Comm. de Communes, Vendée  (<span id="monthrabaud">3</span> mois)</span></div>
           <div class="text-muted text-small mb-2">Juin 2014 - Aout 2014</div>
           <div>Mise en place d’une solution de supervision (Eyes Of Network : Nagios, Cacti).
             Interconnexion des communes (Firewall, gestion des flux). Inventaire du parc
