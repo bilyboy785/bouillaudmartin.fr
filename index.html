@@ -173,8 +173,9 @@
             start_date = new Date('2022/10/01');
             end_date = new Date(Date.now());
             total_months = (end_date.getFullYear() - start_date.getFullYear())*12 + (end_date.getMonth() - start_date.getMonth());
-            console.log(total_months);
-            document.getElementById("monthfigaro").innerHTML = total_months;
+            let annees = Math.floor(total_months / 12);
+            let moisRestants = total_months % 12;
+            document.getElementById("monthfigaro").innerHTML = `${annees} an(s) et ${moisRestants}`;
           </script>
           <div class="text-muted text-small mb-2">Octobre 2022 - Aujourd'hui</div>
           <div class="justifycontent">Maintien en conditions opérationnelles des plateformes d'hébergement Cloud : <b>GCP / GKE</b><br>
@@ -198,8 +199,9 @@
             start_date = new Date('2017/11/01');
             end_date = new Date('2022/10/20');
             total_months = (end_date.getFullYear() - start_date.getFullYear())*12 + (end_date.getMonth() - start_date.getMonth());
-            console.log(total_months);
-            document.getElementById("monthclaranet").innerHTML = total_months;
+            annees = Math.floor(total_months / 12);
+            moisRestants = total_months % 12;
+            document.getElementById("monthclaranet").innerHTML = `${annees} an(s) et ${moisRestants}`;
           </script>
           <div class="text-muted text-small mb-2">Novembre 2017 - Octobre 2022</div>
           <div class="justifycontent">Missions opérationnelles courantes, maintient en conditions opérationnelles
@@ -220,8 +222,9 @@
             start_date = new Date('2013/06/01');
             end_date = new Date('2015/05/30');
             total_months = (end_date.getFullYear() - start_date.getFullYear())*12 + (end_date.getMonth() - start_date.getMonth());
-            console.log(total_months);
-            document.getElementById("monthrabaud").innerHTML = total_months;
+            annees = Math.floor(total_months / 12);
+            moisRestants = total_months % 12;
+            document.getElementById("monthrabaud").innerHTML = `${annees} an(s) et ${moisRestants}`;
           </script>
           <div class="text-muted text-small mb-2">Juin 2013 - Mai 2015</div>
           <div class="justifycontent">Support de niveau 1 sur un parc de postes Windows. <br>
