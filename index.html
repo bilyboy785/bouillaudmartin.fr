@@ -283,8 +283,6 @@
       <script src="https://apps.elfsight.com/p/platform.js" defer></script>
       <div class="col-md-7 d-print-none">
         <div class="my-2">
-          <!-- <div class="elfsight-app-c9963d5a-3c5b-4bce-a8ec-6c20a2f545b9"></div> -->
-          <!-- <form action="https://formspree.io/your@email.com" method="POST"> -->
             <form action="" method="POST" id="myform"></form>
             <div class="row">
               <div class="col-6">
@@ -365,28 +363,50 @@
     </footer>
     <script>
       document.getElementById("successform").style.display = "none";
-      document.getElementById("submit").addEventListener("click", function () {
-      var bodyheader = '<h2>Nouvelle prise de contact depuis le formulaire</h2>';
-      var bodyfrom = '<b>De :</b> ' + document.getElementById("nomprenom").value + ' <' + document.getElementById("email").value + '><br>';
-      var bodyobjet = '<b>Objet :</b> ' + document.getElementById("objet").value + '<br><br>';
-      var bodymessage = '<b>Message :</b><br> ' + document.getElementById("message").value + '<br>';
-        Email.send({
-          SecureToken : "40de5972-93aa-46d3-9bdc-60e44f63e8ce",
-          To : 'contact@bouillaudmartin.fr',
-          FromName: document.getElementById("nomprenom").value,
-          ReplyAddress: document.getElementById("email").value,
-          From : 'contact@bldwebagency.fr',
-          Subject : "[Bouillaudmartin.fr] - " + document.getElementById("objet").value,
-          Body : bodyheader + bodyfrom + bodyobjet + bodymessage,
-        }).then(
-          document.getElementById('objet').value = '',
-          document.getElementById('message').value = '',
-          document.getElementById('nomprenom').value = '',
-          document.getElementById('email').value = '',
+
+      document.getElementById("myform").addEventListener("submit", async function(event) {
+        event.preventDefault();
+    
+        const name = document.getElementById("nomprenom").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+    
+        const response = await fetch("https://brevo-worker.bldwebagency.workers.dev/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, message })
+        });
+    
+        const result = await response.json();
+        console.log(result)
+        // document.getElementById("response-message").textContent = result.message || "Erreur lors de l'envoi.";
+
+        document.getElementById("successform").style.display = "block";
+        setTimeout(location.reload.bind(location), 6000);
+    });
+
+    // document.getElementById("submit").addEventListener("click", function () {
+        //  var bodyheader = '<h2>Nouvelle prise de contact depuis le formulaire</h2>';
+        //  var bodyfrom = '<b>De :</b> ' + document.getElementById("nomprenom").value + ' <' + document.getElementById("email").value + '><br>';
+        //  var bodyobjet = '<b>Objet :</b> ' + document.getElementById("objet").value + '<br><br>';
+        //  var bodymessage = '<b>Message :</b><br> ' + document.getElementById("message").value + '<br>';
+        //    Email.send({
+        //      SecureToken : "40de5972-93aa-46d3-9bdc-60e44f63e8ce",
+        //      To : 'contact@bouillaudmartin.fr',
+        //      FromName: document.getElementById("nomprenom").value,
+        //      ReplyAddress: document.getElementById("email").value,
+        //      From : 'contact@bldwebagency.fr',
+        //      Subject : "[Bouillaudmartin.fr] - " + document.getElementById("objet").value,
+        //      Body : bodyheader + bodyfrom + bodyobjet + bodymessage,
+         //   }).then(
+         //     document.getElementById('objet').value = '',
+        //      document.getElementById('message').value = '',
+        //      document.getElementById('nomprenom').value = '',
+           //   document.getElementById('email').value = '',
           document.getElementById("successform").style.display = "block",
           setTimeout(location.reload.bind(location), 6000),
-        );
-      });
+           //);
+          //});
     </script>
     <!-- <script>
       function onSubmit(token) {
@@ -394,6 +414,7 @@
       }
     </script> -->
     <script src="scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
     <script src="scripts/aos.js?ver=1.2.0"></script>
     <script src="scripts/main.js?ver=1.2.0"></script>
   </body>
