@@ -15,7 +15,13 @@
   margin-bottom: 1rem; }
 
 .justifycontent {
-  text-align: justify;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .justifycontent {
+    text-align: justify;
+  }
 }
 
 p.success {
